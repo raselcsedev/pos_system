@@ -7,13 +7,14 @@ import { brandSchema } from "@/validations/brand.schema";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requirePermission("products.manage");
     await connectDB();
 
-    const brand = await Brand.findById(params.id).lean();
+    const { id } = await params;
+    const brand = await Brand.findById(id).lean();
     if (!brand) return apiError("Brand not found", 404);
     return apiSuccess(brand);
   } catch (error) {
@@ -23,12 +24,13 @@ export async function GET(
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requirePermission("products.manage");
     await connectDB();
 
+    const { id } = await params;
     const body = await req.json();
     const parsed = brandSchema.safeParse(body);
     if (!parsed.success) {
@@ -41,7 +43,7 @@ export async function PUT(
       : data.name.trim().toLowerCase().replace(/\s+/g, "-");
 
     const updated = await Brand.findByIdAndUpdate(
-      params.id,
+      id,
       {
         name: data.name,
         slug,
@@ -60,13 +62,14 @@ export async function PUT(
 
 export async function DELETE(
   _req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requirePermission("products.manage");
     await connectDB();
 
-    const deleted = await Brand.findByIdAndDelete(params.id).lean();
+    const { id } = await params;
+    const deleted = await Brand.findByIdAndDelete(id).lean();
     if (!deleted) return apiError("Brand not found", 404);
     return apiSuccess(deleted, "Brand deleted");
   } catch (error) {
