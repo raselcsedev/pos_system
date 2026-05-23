@@ -33,16 +33,19 @@ const columns = [
 
 export function CategoriesPage() {
   const [data, setData] = useState<CategoryRow[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const load = () => {
+    setIsLoading(true);
     fetch("/api/categories")
       .then((r) => r.json())
       .then((json) => {
         if (json.success) {
-          setData(json.data);
+          setData(json.data ?? []);
         }
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -94,9 +97,11 @@ export function CategoriesPage() {
               ))}
             </tbody>
           </table>
-          {data.length === 0 && (
+          {isLoading ? (
+            <p className="py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">Loading categories...</p>
+          ) : data.length === 0 ? (
             <p className="py-8 text-center text-zinc-500 dark:text-zinc-400">No categories found. Add one to get started.</p>
-          )}
+          ) : null}
         </CardContent>
       </Card>
 

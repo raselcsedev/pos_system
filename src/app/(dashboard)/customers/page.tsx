@@ -16,17 +16,20 @@ import { formatCurrency } from "@/lib/utils";
 
 export default function CustomersPage() {
   const [customers, setCustomers] = useState<CustomerRecord[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<CustomerRecord | null>(null);
 
   const load = useCallback(() => {
+    setIsLoading(true);
     const q = search ? `?search=${encodeURIComponent(search)}` : "";
     fetch(`/api/customers${q}`)
       .then((r) => r.json())
       .then((json) => {
-        if (json.success) setCustomers(json.data.items);
-      });
+        if (json.success) setCustomers(json.data.items ?? []);
+      })
+      .finally(() => setIsLoading(false));
   }, [search]);
 
   useEffect(() => {
@@ -126,9 +129,11 @@ export default function CustomersPage() {
               ))}
             </tbody>
           </table>
-          {customers.length === 0 && (
+          {isLoading ? (
+            <p className="py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">Loading customers...</p>
+          ) : customers.length === 0 ? (
             <p className="py-8 text-center text-zinc-500 dark:text-zinc-400">No customers yet. Add one to get started.</p>
-          )}
+          ) : null}
         </CardContent>
       </Card>
 

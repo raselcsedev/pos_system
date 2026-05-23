@@ -47,14 +47,18 @@ const columns = [
 
 export default function ProductsPage() {
   const [data, setData] = useState<ProductRow[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const load = () => {
-    fetch("/api/products?limit=50")
-      .then((r) => r.json())
-      .then((json) => {
-        if (json.success) setData(json.data.items);
-      });
+  const load = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/products?limit=50");
+      const json = await res.json();
+      if (json.success) setData(json.data.items ?? []);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -85,32 +89,38 @@ export default function ProductsPage() {
           </Button>
         </CardHeader>
         <CardContent className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              {table.getHeaderGroups().map((hg) => (
-                <tr key={hg.id} className="border-b text-left text-zinc-500 dark:text-zinc-400">
-                  {hg.headers.map((h) => (
-                    <th key={h.id} className="pb-3 pr-4 font-medium">
-                      {flexRender(h.column.columnDef.header, h.getContext())}
-                    </th>
+          {isLoading ? (
+            <p className="py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">Loading products...</p>
+          ) : (
+            <>
+              <table className="w-full text-sm">
+                <thead>
+                  {table.getHeaderGroups().map((hg) => (
+                    <tr key={hg.id} className="border-b text-left text-zinc-500 dark:text-zinc-400">
+                      {hg.headers.map((h) => (
+                        <th key={h.id} className="pb-3 pr-4 font-medium">
+                          {flexRender(h.column.columnDef.header, h.getContext())}
+                        </th>
+                      ))}
+                    </tr>
                   ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="border-b border-zinc-100 dark:border-zinc-800">
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="py-3 pr-4">
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
+                </thead>
+                <tbody>
+                  {table.getRowModel().rows.map((row) => (
+                    <tr key={row.id} className="border-b border-zinc-100 dark:border-zinc-800">
+                      {row.getVisibleCells().map((cell) => (
+                        <td key={cell.id} className="py-3 pr-4">
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </td>
+                      ))}
+                    </tr>
                   ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {data.length === 0 && (
-            <p className="py-8 text-center text-zinc-500 dark:text-zinc-400">No products found. Run seed script.</p>
+                </tbody>
+              </table>
+              {data.length === 0 && (
+                <p className="py-8 text-center text-zinc-500 dark:text-zinc-400">No products found. Run seed script.</p>
+              )}
+            </>
           )}
         </CardContent>
       </Card>
