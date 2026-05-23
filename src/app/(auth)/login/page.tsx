@@ -83,7 +83,7 @@ export default function LoginPage() {
               )}
             </Button>
           </form>
-          <p className="mt-4 text-center text-sm text-zinc-500">
+          <p className="mt-4 text-center text-sm text-zinc-500 dark:text-zinc-400">
             <Link href="/forgot-password" className="text-emerald-600 hover:underline">
               Forgot password?
             </Link>

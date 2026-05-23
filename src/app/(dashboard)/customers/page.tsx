@@ -84,7 +84,7 @@ export default function CustomersPage() {
         <CardContent className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b text-left text-zinc-500">
+              <tr className="border-b text-left text-zinc-500 dark:text-zinc-400">
                 <th className="pb-3 pr-4">Name</th>
                 <th className="pb-3 pr-4">Contact</th>
                 <th className="pb-3 pr-4">Loyalty</th>
@@ -97,7 +97,7 @@ export default function CustomersPage() {
               {customers.map((c) => (
                 <tr key={c._id} className="border-b border-zinc-100 dark:border-zinc-800">
                   <td className="py-3 pr-4 font-medium">{c.name}</td>
-                  <td className="py-3 pr-4 text-zinc-500">
+                  <td className="py-3 pr-4 text-zinc-500 dark:text-zinc-400">
                     {c.email ?? "—"}
                     {c.phone && <span className="block text-xs">{c.phone}</span>}
                   </td>
@@ -127,7 +127,7 @@ export default function CustomersPage() {
             </tbody>
           </table>
           {customers.length === 0 && (
-            <p className="py-8 text-center text-zinc-500">No customers yet. Add one to get started.</p>
+            <p className="py-8 text-center text-zinc-500 dark:text-zinc-400">No customers yet. Add one to get started.</p>
           )}
         </CardContent>
       </Card>

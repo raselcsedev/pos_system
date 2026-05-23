@@ -41,8 +41,26 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background text-foreground antialiased`}
       >
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(() => {
+              try {
+                const theme = window.localStorage.getItem('theme');
+                if (theme === 'dark' || theme === 'light') {
+                  document.documentElement.classList.add(theme);
+                  document.documentElement.style.colorScheme = theme;
+                } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                  document.documentElement.classList.add('dark');
+                  document.documentElement.style.colorScheme = 'dark';
+                }
+              } catch (error) {
+                // Ignore theme initialization failures.
+              }
+            })();`,
+          }}
+        />
         <SessionProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}

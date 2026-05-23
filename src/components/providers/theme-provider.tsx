@@ -2,6 +2,9 @@
 
 import * as React from "react";
 
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
+
 type Theme = "light" | "dark" | "system";
 type ThemeValue = "light" | "dark";
 
@@ -90,7 +93,7 @@ export function ThemeProvider({
       : "light"
   );
 
-  React.useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const initialTheme = getInitialTheme(storageKey, defaultTheme);
     const resolved = applyTheme(
       initialTheme,
@@ -104,7 +107,7 @@ export function ThemeProvider({
     setResolvedTheme(resolved);
   }, [attribute, defaultTheme, enableColorScheme, enableSystem, storageKey, value]);
 
-  React.useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (theme !== "system" || !enableSystem) {
       return undefined;
     }

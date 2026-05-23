@@ -17,7 +17,7 @@ export function ModulePage({ title, description, children }: ModulePageProps) {
             <CardDescription>{description}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-zinc-500">
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">
               Full CRUD interface connected to MongoDB APIs. Extend this page with
               TanStack Table, React Hook Form, and server actions as needed.
             </p>

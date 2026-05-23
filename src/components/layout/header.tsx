@@ -13,7 +13,16 @@ interface HeaderProps {
 
 export function Header({ title, onMenuClick }: HeaderProps) {
   const { data: session } = useSession();
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+
+  const handleThemeToggle = () => {
+    if (theme === "system") {
+      setTheme(isDark ? "light" : "dark");
+    } else {
+      setTheme(theme === "dark" ? "light" : "dark");
+    }
+  };
 
   return (
     <header className="flex h-16 items-center justify-between border-b border-zinc-200 bg-white px-4 dark:border-zinc-800 dark:bg-zinc-950 lg:px-6">
@@ -38,10 +47,15 @@ export function Header({ title, onMenuClick }: HeaderProps) {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          onClick={handleThemeToggle}
+          aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+          title={`Switch to ${isDark ? "light" : "dark"} mode`}
         >
-          <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          {isDark ? (
+            <Sun className="h-4 w-4" />
+          ) : (
+            <Moon className="h-4 w-4" />
+          )}
         </Button>
         <Button variant="ghost" size="icon" onClick={() => signOut({ callbackUrl: "/login" })}>
           <LogOut className="h-4 w-4" />

@@ -77,7 +77,7 @@ export function CategoryFormDialog({ open, onOpenChange, onSuccess }: Props) {
           <div className="space-y-2">
             <Label>Name *</Label>
             <Input {...register("name")} />
-            {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
+            {errors.name && <p className="text-sm text-red-500 dark:text-red-400">{errors.name.message}</p>}
           </div>
 
           <div className="space-y-2">

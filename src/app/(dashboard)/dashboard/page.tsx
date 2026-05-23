@@ -51,7 +51,7 @@ export default async function DashboardPage() {
                   )
                 )}
                 {overview.topProducts.length === 0 && (
-                  <p className="text-sm text-zinc-500">No sales data yet</p>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">No sales data yet</p>
                 )}
               </div>
             </CardContent>
@@ -75,7 +75,7 @@ export default async function DashboardPage() {
                     </div>
                 ))}
                 {overview.lowStockAlerts.length === 0 && (
-                  <p className="text-sm text-zinc-500">All stock levels OK</p>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">All stock levels OK</p>
                 )}
               </div>
             </CardContent>

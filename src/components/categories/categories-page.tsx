@@ -73,7 +73,7 @@ export function CategoriesPage() {
           <table className="w-full text-sm">
             <thead>
               {table.getHeaderGroups().map((hg) => (
-                <tr key={hg.id} className="border-b text-left text-zinc-500">
+                <tr key={hg.id} className="border-b text-left text-zinc-500 dark:text-zinc-400">
                   {hg.headers.map((h) => (
                     <th key={h.id} className="pb-3 pr-4 font-medium">
                       {flexRender(h.column.columnDef.header, h.getContext())}
@@ -95,7 +95,7 @@ export function CategoriesPage() {
             </tbody>
           </table>
           {data.length === 0 && (
-            <p className="py-8 text-center text-zinc-500">No categories found. Add one to get started.</p>
+            <p className="py-8 text-center text-zinc-500 dark:text-zinc-400">No categories found. Add one to get started.</p>
           )}
         </CardContent>
       </Card>

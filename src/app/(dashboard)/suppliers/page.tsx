@@ -77,7 +77,7 @@ export default function SuppliersPage() {
         <CardContent className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b text-left text-zinc-500">
+              <tr className="border-b text-left text-zinc-500 dark:text-zinc-400">
                 <th className="pb-3 pr-4">Name</th>
                 <th className="pb-3 pr-4">Company</th>
                 <th className="pb-3 pr-4">Contact</th>
@@ -91,7 +91,7 @@ export default function SuppliersPage() {
                 <tr key={s._id} className="border-b border-zinc-100 dark:border-zinc-800">
                   <td className="py-3 pr-4 font-medium">{s.name}</td>
                   <td className="py-3 pr-4">{s.company ?? "—"}</td>
-                  <td className="py-3 pr-4 text-zinc-500">
+                  <td className="py-3 pr-4 text-zinc-500 dark:text-zinc-400">
                     {s.email ?? "—"}
                     {s.phone && <span className="block text-xs">{s.phone}</span>}
                   </td>
@@ -127,7 +127,7 @@ export default function SuppliersPage() {
             </tbody>
           </table>
           {suppliers.length === 0 && (
-            <p className="py-8 text-center text-zinc-500">No suppliers yet. Add one to get started.</p>
+            <p className="py-8 text-center text-zinc-500 dark:text-zinc-400">No suppliers yet. Add one to get started.</p>
           )}
         </CardContent>
       </Card>

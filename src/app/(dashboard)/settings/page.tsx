@@ -1,5 +1,7 @@
-import { ModulePage } from "@/components/shared/module-page";
+import { SettingsPage } from "@/components/settings/settings-page";
+
 export const metadata = { title: "Settings" };
+
 export default function Page() {
-  return <ModulePage title="Settings" description="Store info, tax, currency, invoice customization" />;
+  return <SettingsPage />;
 }

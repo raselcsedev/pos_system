@@ -73,7 +73,7 @@ export default function ReportsPage() {
   return (
     <ModulePage title="Reports" description="Sales, inventory, and financial reports with export">
       <div className="mb-4 flex items-center gap-4">
-        <label className="text-sm text-zinc-500">
+        <label className="text-sm text-zinc-500 dark:text-zinc-400">
           Period (days):
           <select
             className="ml-2 rounded-lg border border-zinc-200 px-3 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
@@ -147,7 +147,7 @@ export default function ReportsPage() {
           <CardContent className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b text-left text-zinc-500">
+                <tr className="border-b text-left text-zinc-500 dark:text-zinc-400">
                   {getColumns(preview.rows).map((col) => (
                     <th key={col} className="pb-2 pr-4 font-medium">
                       {col}
@@ -168,7 +168,7 @@ export default function ReportsPage() {
               </tbody>
             </table>
             {preview.rows.length > 20 && (
-              <p className="mt-2 text-xs text-zinc-500">
+              <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
                 Showing 20 of {preview.rows.length} rows
               </p>
             )}
