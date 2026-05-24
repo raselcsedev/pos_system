@@ -1,5 +1,7 @@
-import { ModulePage } from "@/components/shared/module-page";
+import { NotificationsPage } from "@/components/notifications/notifications-page";
+
 export const metadata = { title: "Notifications" };
+
 export default function Page() {
-  return <ModulePage title="Notifications" description="Low stock, sales alerts, and system notifications" />;
+  return <NotificationsPage />;
 }
