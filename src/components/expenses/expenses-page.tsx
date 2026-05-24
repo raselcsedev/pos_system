@@ -21,10 +21,10 @@ export function ExpensesPage() {
   const [editing, setEditing] = useState<ApiExpenseRecord | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const loadExpenses = useCallback(async () => {
+  const fetchExpenses = useCallback(async (searchTerm = search) => {
     setIsLoading(true);
     try {
-      const query = search ? `?search=${encodeURIComponent(search)}` : "";
+      const query = searchTerm ? `?search=${encodeURIComponent(searchTerm)}` : "";
       const res = await fetch(`/api/expenses${query}`);
       const json = await res.json();
       if (json.success) {
@@ -35,10 +35,12 @@ export function ExpensesPage() {
     }
   }, [search]);
 
+  const loadExpenses = useCallback(() => fetchExpenses(search), [fetchExpenses, search]);
+
   useEffect(() => {
-    const timeout = setTimeout(loadExpenses, 250);
+    const timeout = setTimeout(() => fetchExpenses(search), 250);
     return () => clearTimeout(timeout);
-  }, [loadExpenses]);
+  }, [fetchExpenses, search]);
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this expense?")) return;
@@ -51,7 +53,7 @@ export function ExpensesPage() {
     }
 
     toast.success("Expense deleted");
-    loadExpenses();
+    fetchExpenses(search);
   };
 
   return (

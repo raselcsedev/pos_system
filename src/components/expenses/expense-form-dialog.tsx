@@ -92,8 +92,8 @@ export function ExpenseFormDialog({ open, onOpenChange, expense, onSuccess }: Pr
     }
 
     toast.success(isEdit ? "Expense updated" : "Expense created");
-    onOpenChange(false);
     onSuccess();
+    onOpenChange(false);
   };
 
   return (
