@@ -27,7 +27,10 @@ export class SaleRepository {
     const filter: Record<string, unknown> = {};
 
     if (params.status) filter.status = params.status;
-    if (params.branchId) filter.branchId = params.branchId;
+    if (params.search) {
+      const regex = { $regex: params.search, $options: "i" };
+      filter.$or = [{ invoiceNumber: regex }];
+    }
     if (params.from || params.to) {
       filter.createdAt = {};
       if (params.from)
@@ -35,6 +38,7 @@ export class SaleRepository {
       if (params.to)
         (filter.createdAt as Record<string, Date>).$lte = params.to;
     }
+    if (params.branchId) filter.branchId = params.branchId;
 
     const [items, total] = await Promise.all([
       Sale.find(filter)
