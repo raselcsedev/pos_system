@@ -40,3 +40,29 @@ body {
 * {
   border-color: var(--border);
 }
+
+html.dark body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+html.dark .bg-white {
+  background-color: var(--card) !important;
+}
+
+html.dark .bg-zinc-50 {
+  background-color: var(--muted) !important;
+}
+
+html.dark .bg-zinc-100 {
+  background-color: var(--background) !important;
+}
+
+html.dark .text-zinc-900,
+html.dark .text-zinc-950 {
+  color: var(--foreground) !important;
+}
+
+html.dark .ring-offset-white {
+  --tw-ring-offset-color: #0f172a;
+}
