@@ -43,7 +43,7 @@ export async function PUT(req: Request) {
     const body = await req.json();
     const parsed = settingsSchema.safeParse(body);
     if (!parsed.success) {
-      return apiError(parsed.error.errors[0]?.message ?? "Invalid settings data");
+      return apiError(parsed.error.issues[0]?.message ?? "Invalid settings data");
     }
 
     await Settings.updateOne({}, parsed.data, { upsert: true });

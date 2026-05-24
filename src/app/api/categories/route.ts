@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const parsed = categorySchema.safeParse(body);
     if (!parsed.success) {
-      return apiError(parsed.error.errors[0]?.message ?? "Invalid category data");
+      return apiError(parsed.error.issues[0]?.message ?? "Invalid category data");
     }
 
     const data = parsed.data;

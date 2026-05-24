@@ -34,7 +34,7 @@ export async function PUT(
     const body = await req.json();
     const parsed = brandSchema.safeParse(body);
     if (!parsed.success) {
-      return apiError(parsed.error.errors[0]?.message ?? "Invalid brand data");
+      return apiError(parsed.error.issues[0]?.message ?? "Invalid brand data");
     }
 
     const data = parsed.data;
