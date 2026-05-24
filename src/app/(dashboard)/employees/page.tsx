@@ -1,5 +1,7 @@
-import { ModulePage } from "@/components/shared/module-page";
+import { EmployeesPage } from "@/components/employees/employees-page";
+
 export const metadata = { title: "Employees" };
+
 export default function Page() {
-  return <ModulePage title="Employees" description="Employee management, roles, and attendance" />;
+  return <EmployeesPage />;
 }
