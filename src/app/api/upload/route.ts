@@ -1,12 +1,12 @@
 import { apiSuccess, apiError } from "@/lib/api-response";
-import { requirePermission } from "@/lib/auth-helpers";
+import { requireAuth } from "@/lib/auth-helpers";
 import { isCloudinaryConfigured, uploadImage } from "@/lib/cloudinary";
 
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   try {
-    await requirePermission("products.manage");
+    await requireAuth();
 
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
