@@ -58,6 +58,23 @@ html.dark .bg-zinc-100 {
   background-color: var(--background) !important;
 }
 
+html.dark .bg-sky-50 {
+  background-color: #0f172a !important;
+}
+
+html.dark .bg-sky-100 {
+  background-color: #0f172a !important;
+}
+
+html.dark .bg-sky-200 {
+  background-color: #0f172a !important;
+}
+
+html.dark .bg-sky-900,
+html.dark .bg-sky-950 {
+  background-color: #0f172a !important;
+}
+
 html.dark .text-zinc-900,
 html.dark .text-zinc-950 {
   color: var(--foreground) !important;
