@@ -1,5 +1,7 @@
-import { ModulePage } from "@/components/shared/module-page";
+import { BranchesPage } from "@/components/branches/branches-page";
+
 export const metadata = { title: "Branches" };
+
 export default function Page() {
-  return <ModulePage title="Branches" description="Multi-branch store management" />;
+  return <BranchesPage />;
 }
