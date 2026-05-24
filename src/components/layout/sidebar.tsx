@@ -45,11 +45,14 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden w-64 shrink-0 border-r border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950 lg:flex lg:flex-col">
-      <div className="flex h-16 items-center border-b border-zinc-200 px-6 dark:border-zinc-800">
-        <Link href="/dashboard" className="flex items-center gap-2 font-bold text-lg">
-          <ShoppingCart className="h-6 w-6 text-emerald-600" />
-          <span>RetailPOS</span>
+    <aside className="hidden w-64 shrink-0 bg-sky-50 shadow-sm shadow-sky-200/50 dark:bg-sky-950 dark:shadow-sky-950/40 lg:flex lg:flex-col">
+      <div className="flex h-16 items-center px-6 shadow-sm shadow-sky-200/30 dark:shadow-sky-950/30">
+        <Link href="/dashboard" className="flex items-center gap-2 font-bold text-lg text-slate-900 dark:text-slate-100">
+          <ShoppingCart className="h-6 w-6 text-sky-600" />
+          <span>
+            <span className="text-sky-700 dark:text-sky-300">Retail</span>
+            <span className="text-slate-900 dark:text-slate-100">POS</span>
+          </span>
         </Link>
       </div>
       <nav className="flex-1 space-y-1 overflow-y-auto p-4">
@@ -63,11 +66,11 @@ export function Sidebar() {
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 active
-                  ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400"
-                  : "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-900"
+                  ? "bg-sky-200 text-sky-900 shadow-sm shadow-sky-200/30 dark:bg-sky-900 dark:text-sky-100 dark:shadow-sky-950/50"
+                  : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-100"
               )}
             >
-              <Icon className="h-4 w-4" />
+              <Icon className={cn("h-4 w-4", active ? "text-sky-500" : "text-slate-400 dark:text-slate-500")} />
               {item.label}
             </Link>
           );
