@@ -15,34 +15,55 @@ const publicRoutes = [
 
 export default auth((req) => {
   const { pathname } = req.nextUrl;
+
   const isPublic = publicRoutes.some(
-    (route) => pathname === route || pathname.startsWith(`${route}/`)
+    (route) =>
+      pathname === route ||
+      pathname.startsWith(`${route}/`)
   );
 
+  // Public routes
   if (isPublic) {
-    if (pathname === "/login" && req.auth) {
-      return NextResponse.redirect(new URL("/dashboard", req.url));
+    if (pathname === "/login" && req.auth?.user) {
+      return NextResponse.redirect(
+        new URL("/dashboard", req.url)
+      );
     }
+
     return NextResponse.next();
   }
 
-  if (!req.auth) {
+  // Not authenticated
+  if (!req.auth?.user) {
     const loginUrl = new URL("/login", req.url);
-    loginUrl.searchParams.set("callbackUrl", pathname);
+
+    if (pathname !== "/login") {
+      loginUrl.searchParams.set(
+        "callbackUrl",
+        pathname
+      );
+    }
+
     return NextResponse.redirect(loginUrl);
   }
 
-  const matchedRoute = Object.keys(ROUTE_PERMISSIONS).find((route) =>
-    pathname.startsWith(route)
-  );
+  // Permission checking
+  const matchedRoute = Object.keys(
+    ROUTE_PERMISSIONS
+  ).find((route) => pathname.startsWith(route));
 
   if (matchedRoute) {
-    const permission = ROUTE_PERMISSIONS[matchedRoute] as Permission;
-    const role = req.auth.user?.role as UserRole;
-    const perms = req.auth.user?.permissions as Permission[] | undefined;
+    const permission =
+      ROUTE_PERMISSIONS[matchedRoute] as Permission;
 
-    if (!hasPermission(role, permission, perms)) {
-      return NextResponse.redirect(new URL("/dashboard", req.url));
+    const role =
+      req.auth.user.role as UserRole;
+
+    // Uses role-based permissions only
+    if (!hasPermission(role, permission)) {
+      return NextResponse.redirect(
+        new URL("/dashboard", req.url)
+      );
     }
   }
 
