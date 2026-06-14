@@ -19,7 +19,6 @@ export async function requirePermission(permission: Permission) {
   const allowed = hasPermission(
     session.user.role,
     permission,
-    session.user.permissions
   );
   if (!allowed) throw new Error("Forbidden");
   return session;
